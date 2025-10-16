@@ -6,30 +6,61 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>GOVERNMENT BILL</title>
     <link rel="stylesheet" href="styles.css">
-  </head>
+    <link rel="preload" href="scripts.js" as="script">
 
+  </head>
+<!-- GET 
+ https://www.googleapis.com/drive/v3/files/1BNrBhhrLe-jJSV3RRO16XBxsZAO4ZnpI9EaDAu9-k6E/export?mimeType=text/html -->
 
 
 <body class="content">
-  <!-- HEADER -->
+          <!-- HEADER -->
   <div class="header" id="main-header">
-   <h2>HB6310</h2>
-   <h1>Deregulating Nuclear Power</h1>
+    <section class="headerCenter">
+      <h2>HB6310</h2>
+      <h1>Deregulating Nuclear Power</h1>
+    </section>
+    <section class="headerRight">
+      <p>^</p>
+    </section>
+  </div>
+    
+          <!-- LANDING IMAGE GRID -->
+<section id="landingImgGrid" class="hero-grid">
+  <div class="hero-item revealImg">
+    <img src="/images/nuclearImg0.jpg" alt="Image 1">
   </div>
 
-  <div class="primaryimgcontent">
-    <img class="nuclear-img" src="1080pnuclearpower.jpg" alt="Nuclear Enery Picture">
-      <div class="img-numbers">
-        <span class="HB6310">HB6310</span>
-        <span>Deregulating Nuclear Power</span>
-      </div>
+  <div class="hero-item revealImg2">
+    <img src="/images/nuclearImg1.webp" alt="Image 2">
   </div>
-  <main>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  </main>
 
+  <div class="hero-item revealImg">
+    <img src="/images/nuclearImg2.png" alt="Image 3">
+  </div>
 
+  <div class="hero-item revealImg2">
+    <img src="/images/1080pnuclearpower.jpg" alt="Image 4">
+  </div>
 
-  <script src="scripts.js"></script>
+    <div class="overlay">
+      <h1 class="reveal">Deregulating Nuclear Energy</h1>
+      <button id="scrollBtn" class="btn reveal">DISCOVER</button>
+    </div>
+</section>
+
+<main>
+    <section class="bodyColumn column0">
+      <iframe class="googleDoc reveal" src="https://script.google.com/macros/s/AKfycbzzFE1Bei4nwcCrbog0WFpDCPn7Njcf-B6f5AYWP1m5mKU4g-tWddylcyisRLvO0ZyNlQ/exec"></iframe>
+    </section>
+
+    <section class="bodyColumn column1">
+    </section>
+
+    <section class="bodyColumn column2">
+    </section>
+</main>
+
+<script src="scripts.js"></script>
 </body>
 </html>
