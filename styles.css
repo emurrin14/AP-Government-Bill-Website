@@ -97,6 +97,12 @@ body {
   padding: 1rem 1.4rem;
   gap: 30rem;
 }
+@media (max-width: 1400px) {
+  .header .headerCenter{
+  padding: 1rem 1.4rem;
+  gap: 20rem;
+  }
+}
 .header .headerCenter h2 {
   font-size: 1rem;
   margin: 0;
