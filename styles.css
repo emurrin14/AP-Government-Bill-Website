@@ -28,6 +28,7 @@ img {
 body {
     margin: 0px 0px 0px 0px;
 }
+
 .content{
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
@@ -63,14 +64,59 @@ body {
 }
 
     /* HEADER STYLES */
+#main-header{
+  transform: translateY(-100px);
+  transition: transform 0.4s cubic-bezier(.44,.01,.12,.99);
+}
+#main-header.show{
+  transform: translateY(0);
+}
 .header{
+  position: fixed;
   display: flex;
   justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  top: 30px;
+  gap: .5rem;
+  z-index: 2;
+  color: white;
+}
+.header .headerCenter,
+.header .headerRight {
+  justify-content: space-between;
+  display: flex;
   align-items: center;
-  gap: 2rem;
-  
+  flex-direction: row;
+  align-items: center;
+  background: var(--bg);
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.header .headerCenter{
+  padding: 1rem 1.4rem;
+  gap: 30rem;
+}
+.header .headerCenter h2 {
+  font-size: 1rem;
+  margin: 0;
+}
+.header .headerCenter h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+.header .headerCenter div{
+}
+.header .headerRight{
+  padding: 1rem 1rem;
+  cursor: pointer;
 }
 
+.headerUpArrow {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
     /* LANDING IMG GRID STYLES */
 .hero-grid {
   display: grid;
@@ -151,8 +197,16 @@ body {
   cursor: pointer;
 }
 main{
-  background-image: url("/images/blackBlueMaroon.png");
-  background-attachment: fixed;
+  background-image: url("images/blackBlueMaroonVertical.png");
+  background-attachment:initial;
+  background-size: cover;
+  overflow: hidden;
+  object-fit: contain;
+}
+.imgBg{
+    backdrop-filter: blur(80px) saturate(180%);
+  -webkit-backdrop-filter: blur(80px) saturate(180%);
+  background-color: rgba(17, 25, 40, 0.75);
 }
     /* COLUMN TEMPLATE */
 .bodyColumn{
@@ -160,6 +214,7 @@ main{
   flex-direction: row;
   height: 20rem;
 }
+
     /* FIRST COLUMN */
 .bodyColumn.column0{
   background: transparent;
@@ -171,18 +226,6 @@ main{
   border: 2px solid black;
   margin: 2rem 2rem;
   border-radius: 10px;
-}
-    /* SECOND COLUMN */
-.bodyColumn.column1{
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(17, 25, 40, 0.75);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
-}
-    /* THIRD COLUMN */
-.bodyColumn.column2{
-
 }
 
 

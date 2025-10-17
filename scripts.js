@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const header = document.getElementById("main-header");
-  const triggerPoint = 300; // Scroll Y (px) where header appears
+  const triggerPoint = 300;
 
   window.addEventListener("scroll", () => {
     if (window.scrollY > triggerPoint) {
@@ -60,6 +60,15 @@ document.getElementById("scrollBtn").addEventListener("click", () => {
   const offset = image.getBoundingClientRect().bottom;
   window.scrollBy({
     top: offset,
+    left: 0,
+    behavior: "smooth"
+  });
+});
+
+
+document.getElementById("upArrow").addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
     left: 0,
     behavior: "smooth"
   });
