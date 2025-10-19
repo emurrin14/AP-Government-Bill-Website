@@ -80,3 +80,26 @@ document.getElementById("upArrow").addEventListener("click", () => {
     arrow.classList.remove("arrowClicked");
   }, 50);
 });
+
+
+const linkContainers = document.querySelectorAll("#linkContainer");
+const links = document.querySelectorAll("#linkSvg");
+
+linkContainers.forEach((linkContainer) => {
+    const link = linkContainer.querySelector("#linkSvg");
+
+
+  linkContainer.addEventListener("mouseover", () => {
+    linkContainer.classList.add("linkActive");
+    linkContainer.classList.remove("cardLink");
+    link.classList.add("svgActive");
+    link.classList.remove("linkIcon");
+  });
+
+  linkContainer.addEventListener("mouseout", () => {
+    linkContainer.classList.remove("linkActive");
+    linkContainer.classList.add("cardLink");
+    link.classList.add("linkIcon");
+    link.classList.remove("svgActive");
+  });
+});

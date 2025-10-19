@@ -266,12 +266,40 @@ main{
   border-radius: 25px;
   z-index: 100;
   cursor: pointer;
+  transition: 0.1s cubic-bezier(.46,.24,.12,1.01);
 }
 .bodyColumn .linkIcon{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  transition: 0.1s cubic-bezier(.46,.24,.12,1.01);
+}
+.svgActive{
+  position: absolute;
+  top: 50%;
+  left: 80%;
+  transform: translateY(-50%);
+  transition: 0.1s cubic-bezier(.46,.24,.12,1.01);
+}
+.linkActive{
+  position: absolute;
+  left: -18px;
+  top: -18px;
+  background-color: var(--bg);
+  color: white;
+  width: 200px;
+  height: 50px;
+  border-radius: 25px;
+  z-index: 100;
+  cursor: pointer;
+  transition: 0.1s cubic-bezier(.46,.24,.12,1.01);
+}
+.linkText{
+  opacity: 0;
+}
+.linkText .linkTextActive{
+  opacity: 1;
 }
 .bodyColumn .cardBorder{
   width: 130%;
