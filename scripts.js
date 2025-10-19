@@ -72,4 +72,11 @@ document.getElementById("upArrow").addEventListener("click", () => {
     left: 0,
     behavior: "smooth"
   });
+
+  const arrow = document.getElementById("upArrow");
+  arrow.classList.add("arrowClicked");
+
+  setTimeout(() => {
+    arrow.classList.remove("arrowClicked");
+  }, 50);
 });
