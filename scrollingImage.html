@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infinite Image Gallery</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .gallery-wrapper {
+      width: 900px; /* fits 3 images (3 x 300px) */
+      overflow: hidden;
+      position: relative;
+      border-radius: 16px;
+    }
+
+    .gallery {
+      display: flex;
+      width: max-content;
+      animation: scroll 15s linear infinite;
+    }
+
+    .gallery:hover {
+      animation-play-state: paused;
+    }
+
+    .gallery img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border-radius: 10px;
+      margin-right: 10px;
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="gallery-wrapper">
+    <div class="gallery" id="gallery">
+      <img src="https://picsum.photos/id/1018/300/200" alt="1">
+      <img src="https://picsum.photos/id/1015/300/200" alt="2">
+      <img src="https://picsum.photos/id/1016/300/200" alt="3">
+      <img src="https://picsum.photos/id/1020/300/200" alt="4">
+      <img src="https://picsum.photos/id/1024/300/200" alt="5">
+    </div>
+  </div>
+
+  <script>
+    // Duplicate the images so the scroll loops seamlessly
+    const gallery = document.getElementById('gallery');
+    gallery.innerHTML += gallery.innerHTML; // clone contents
+  </script>
+</body>
+</html>
