@@ -132,6 +132,7 @@ body {
 }
     /* LANDING IMG GRID STYLES */
 .hero-grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   overflow: hidden;
