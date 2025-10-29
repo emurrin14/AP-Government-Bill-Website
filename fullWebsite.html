@@ -5,7 +5,926 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>GOVERNMENT BILL</title>
-
-    <style></style>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preload" href="scripts.js" as="script" />
   </head>
+  <style>
+    /* MAIN HTML STYLES */
+    :root {
+      --main: #ffffff;
+      --bg: #292929;
+      --card: #ffffff;
+      --muted: #64748b;
+      --max-width: 600px;
+    }
+    p {
+      font-size: 4rem;
+    }
+    html {
+      scrollbar-width: thin;
+      background-color: var(--bg);
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+    img {
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    body {
+      margin: 0px 0px 0px 0px;
+    }
+
+    .content {
+      font-family: "Montserrat", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 600;
+      font-style: normal;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .revealImg {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.5s cubic-bezier(0.17, 0.67, 0.38, 0.91),
+        transform 0.5s cubic-bezier(0.17, 0.67, 0.38, 0.91);
+    }
+    .revealImg.revealedImg {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .revealImg2 {
+      opacity: 0;
+      transform: translateY(-30px);
+      transition: opacity 0.5s cubic-bezier(0.17, 0.67, 0.38, 0.91),
+        transform 0.5s cubic-bezier(0.17, 0.67, 0.38, 0.91);
+    }
+    .revealImg2.revealedImg2 {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* HEADER STYLES */
+    #main-header {
+      transform: translateY(-100px);
+      transition: transform 0.4s cubic-bezier(0.44, 0.01, 0.12, 0.99);
+    }
+    #main-header.show {
+      transform: translateY(0);
+    }
+    .header {
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      width: 100%;
+      top: 30px;
+      gap: 0.5rem;
+      z-index: 2;
+      color: white;
+    }
+    .header .headerCenter,
+    .header .headerRight {
+      justify-content: space-between;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      align-items: center;
+      background: var(--bg);
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .header .headerCenter {
+      padding: 0.8rem 1.2rem;
+      gap: 30rem;
+    }
+    @media (max-width: 1400px) {
+      .header .headerCenter {
+        padding: 0.8rem 1.2rem;
+        gap: 20rem;
+      }
+    }
+    .header .headerCenter h2 {
+      font-size: 1rem;
+      margin: 0;
+    }
+    .header .headerCenter h1 {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+    .header .headerCenter div {
+    }
+    .header .headerRight {
+      padding: 1rem 1rem;
+      cursor: pointer;
+    }
+
+    .headerUpArrow {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+    #upArrow {
+      transition: 0.1s ease;
+    }
+    #upArrow.arrowClicked {
+      transform: translateY(-10px);
+    }
+    /* LANDING IMG GRID STYLES */
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      overflow: hidden;
+    }
+
+    .hero-item {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .hero-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .hero-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Overlay text */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .overlay h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    /* BUTTON ANIMATIONS */
+
+    .btn {
+      position: relative;
+      display: inline-block;
+      padding: 1rem 2rem;
+      border: 2px solid white;
+      color: white;
+      background: transparent;
+      text-decoration: none;
+      font-weight: 500;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: color 0.3s ease;
+      z-index: 0; /* create a stacking context */
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background: white;
+      z-index: -1; /* put it behind the text */
+      transition: width 0.5s cubic-bezier(0.46, 0.24, 0.12, 1.01);
+    }
+
+    .btn:hover::before {
+      width: 100%;
+    }
+
+    .btn:hover {
+      color: black;
+      cursor: pointer;
+    }
+    main {
+      background-image: url("https://live.staticflickr.com/65535/54887725470_0e61756de9_b.jpg");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-position: top left;
+    }
+    .imgBg {
+      backdrop-filter: blur(80px) saturate(180%);
+      -webkit-backdrop-filter: blur(80px) saturate(180%);
+      background-color: rgba(17, 25, 40, 0.75);
+    }
+    /* COLUMN TEMPLATE */
+    .bodyColumn {
+      display: flex;
+      flex-direction: row;
+    }
+
+    /* FIRST COLUMN */
+    .bodyColumn.column0 {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      padding-top: 14rem;
+      width: 100%;
+      gap: 2rem;
+    }
+    .sponsors {
+      position: relative;
+      background: transparent;
+      text-align: center;
+      width: 900px;
+      margin: 0 auto 0 auto;
+      top: 100px;
+      font-size: 3rem;
+      color: white;
+    }
+
+    .bodyColumn card {
+      background: var(--bg);
+      background: transparent;
+      border-radius: 40px;
+      aspect-ratio: 2 / 3;
+      width: 26%;
+      height: auto;
+      z-index: 1;
+      position: relative;
+      object-fit: cover;
+    }
+    .bodyColumn .cardLink {
+      position: absolute;
+      left: -18px;
+      top: -18px;
+      background-color: var(--bg);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      z-index: 100;
+      cursor: pointer;
+      transition: 0.1s cubic-bezier(0.46, 0.24, 0.12, 1.01);
+    }
+    .bodyColumn .linkIcon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: 0.1s cubic-bezier(0.46, 0.24, 0.12, 1.01);
+    }
+    .svgActive {
+      position: absolute;
+      top: 50%;
+      left: 80%;
+      transform: translateY(-50%);
+      transition: 0.1s cubic-bezier(0.46, 0.24, 0.12, 1.01);
+    }
+    .linkActive {
+      position: absolute;
+      left: -18px;
+      top: -18px;
+      background-color: var(--bg);
+      color: white;
+      width: 200px;
+      height: 50px;
+      border-radius: 25px;
+      z-index: 100;
+      cursor: pointer;
+      transition: 0.1s cubic-bezier(0.46, 0.24, 0.12, 1.01);
+    }
+    .linkText {
+      opacity: 0;
+    }
+    .linkText .linkTextActive {
+      opacity: 1;
+    }
+    .bodyColumn .cardBorder {
+      width: 130%;
+      height: 100%;
+    }
+    .bodyColumn img {
+      border-radius: 25px;
+      z-index: 3;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .imgH1 {
+      position: absolute;
+      margin: 0;
+      z-index: 4;
+      top: 14%;
+      left: 50%;
+      transform: translate(-50%);
+      text-align: center;
+      font-size: 1.5rem;
+      text-wrap: nowrap;
+      color: white;
+    }
+    .imgH2 {
+      position: absolute;
+      margin: 0;
+      z-index: 4;
+      bottom: 14%;
+      left: 50%;
+      transform: translate(-50%);
+      text-align: center;
+      font-size: 1.5rem;
+      text-wrap: nowrap;
+      color: white;
+    }
+    .testBg {
+      position: absolute;
+      width: 100%;
+      height: 80px;
+      bottom: 0;
+      backdrop-filter: blur(80px) saturate(180%);
+      -webkit-backdrop-filter: blur(80px) saturate(180%);
+      z-index: 6;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+    /* SECOND SPONSORS GRID */
+    .secondSponsorsGrid {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      padding-top: 4rem;
+      width: 100%;
+      gap: 2rem;
+    }
+    .secondSponsorsGrid card {
+      background: var(--bg);
+      background: transparent;
+      border-radius: 40px;
+      aspect-ratio: 2 / 3;
+      width: 26%;
+      height: auto;
+      z-index: 1;
+      position: relative;
+    }
+    .secondSponsorsGrid .cardLink {
+      position: absolute;
+      left: -18px;
+      top: -18px;
+      background-color: var(--bg);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      z-index: 100;
+      cursor: pointer;
+      transition: 0.1s cubic-bezier(0.46, 0.24, 0.12, 1.01);
+    }
+    .secondSponsorsGrid .linkIcon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: 0.1s cubic-bezier(0.46, 0.24, 0.12, 1.01);
+    }
+    .secondSponsorsGrid .cardBorder {
+      width: 130%;
+      height: 100%;
+    }
+    .secondSponsorsGrid img {
+      border-radius: 25px;
+      z-index: 3;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .bodyColumn.column1 {
+      margin: 10rem 30px 0rem 30px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      grid-column-gap: 20px;
+      grid-row-gap: 200px;
+      background: transparent;
+      place-items: center;
+    }
+
+    .bodyColumn.column1 .youtubeVideo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      grid-area: 1 / 1 / 2 / 3;
+    }
+    .youtubeVideo iframe {
+      border-radius: 20px;
+    }
+
+    .bodyColumn.column1 .billFormatTemplate {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 900px;
+      grid-area: 2 / 1 / 3 / 2;
+    }
+    .billFormatTemplate iframe {
+      display: block;
+      width: 100%;
+      height: 900px;
+    }
+
+    .bodyColumn.column1 .billPaper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 900px;
+      grid-area: 2 / 2 / 3 / 3;
+    }
+    .billPaper iframe {
+      width: 100%;
+      height: 900px;
+    }
+
+    .bodyColumn.column1 .slidePresentation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 900px;
+      grid-area: 3 / 1 / 4 / 3;
+    }
+    .slidePresentation iframe {
+      width: 1000px;
+      height: 600px;
+    }
+
+    .bodyColumn.column1 .googleFormPoll {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 900px;
+      grid-area: 4 / 1 / 5 / 2;
+    }
+    .googleFormStats {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 900px;
+      grid-area: 4 / 2 / 5 / 3;
+    }
+    #statsImage {
+      width: 600px !important;
+      height: 1200px !important;
+      position: relative;
+      transform: translate(0, 0);
+      top: 0%;
+      left: 0%;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-item {
+        height: 50vh;
+      }
+      .overlay h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+  <body class="content">
+    <!-- HEADER -->
+    <div class="header" id="main-header">
+      <section class="headerCenter">
+        <h2>HB6310</h2>
+        <h1>Deregulating Nuclear Energy</h1>
+        <div></div>
+      </section>
+      <section id="upArrow" class="headerRight">
+        <svg
+          class="headerUpArrow"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        >
+          <path
+            d="M214.6 17.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 117.3 160 488c0 17.7 14.3 32 32 32s32-14.3 32-32l0-370.7 105.4 105.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
+          />
+        </svg>
+      </section>
+    </div>
+
+    <!-- LANDING IMAGE GRID -->
+    <section id="landingImgGrid" class="hero-grid">
+      <div class="hero-item revealImg">
+        <img src="https://i.imgur.com/KIbX6PC.jpeg" alt="Image 1" />
+      </div>
+
+      <div class="hero-item revealImg2">
+        <img src="https://i.imgur.com/GSGi37E.png" alt="Image 2" />
+      </div>
+
+      <div class="hero-item revealImg">
+        <img src="https://i.imgur.com/zKOnjZf.png" alt="Image 3" />
+      </div>
+
+      <div class="hero-item revealImg2">
+        <img src="https://i.imgur.com/9C98ZSR.jpeg" alt="Image 4" />
+      </div>
+
+      <div class="overlay">
+        <h1 class="reveal">Deregulating Nuclear Energy</h1>
+        <button id="scrollBtn" class="btn reveal">SPONSORS</button>
+      </div>
+    </section>
+
+    <main>
+      <div class="imgBg">
+        <h1 class="sponsors">Sponsors</h1>
+        <section class="bodyColumn column0 reveal">
+          <card>
+            <div class="cardBorder">
+              <img
+                src="https://live.staticflickr.com/65535/54886534427_63021c19d9.jpg"
+                width="500"
+                height="435"
+                alt="EmbedKuba"
+              />
+              <a
+                href="https://docs.google.com/document/d/10zMjfwFSCWLROdPrL-xiCJKp17amTA2xexU0rXWZlnA/edit?usp=sharing"
+              >
+                <div class="cardLink" id="linkContainer">
+                  <svg
+                    class="linkIcon"
+                    id="linkSvg"
+                    width="30"
+                    height="30"
+                    style="
+                      vertical-align: middle;
+                      fill: currentColor;
+                      overflow: hidden;
+                    "
+                    viewBox="0 0 1024 1024"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M546.918 665.498a187.96 187.96 0 0 1-133.324-55.143 25.6 25.6 0 0 1 36.198-36.198 137.47 137.47 0 0 0 194.202 0l186.163-186.163c53.555-53.556 53.555-140.647 0-194.202s-140.647-53.555-194.202 0L478.874 350.874a25.6 25.6 0 0 1-36.199-36.199l157.082-157.081c73.523-73.524 193.126-73.524 266.598 0s73.523 193.126 0 266.598L680.192 610.355a187.96 187.96 0 0 1-133.325 55.143z"
+                    />
+                    <path
+                      d="M239.718 972.698a187.96 187.96 0 0 1-133.324-55.143 188.67 188.67 0 0 1 0-266.598l186.163-186.163a188.67 188.67 0 0 1 266.598 0 25.6 25.6 0 0 1-36.198 36.198 137.47 137.47 0 0 0-194.202 0L142.592 687.155c-53.555 53.555-53.555 140.647 0 194.202s140.646 53.555 194.202 0l157.081-157.082a25.6 25.6 0 0 1 36.199 36.199L372.992 917.555a187.96 187.96 0 0 1-133.325 55.143z"
+                    />
+                  </svg>
+                </div>
+              </a>
+              <section class="testBg">
+                <h1 class="imgH1">Kuba Slupski</h1>
+                <br />
+                <h1 class="imgH2">Democrat</h1>
+              </section>
+            </div>
+          </card>
+
+          <card>
+            <div class="cardBorder">
+              <img
+                src="https://live.staticflickr.com/65535/54887653704_a0a296400f.jpg"
+                width="292"
+                height="500"
+                alt="IMG_2375"
+              />
+              <a
+                href="https://docs.google.com/document/d/1z1GaRXtmiDEHEo3EDGPqKFCrmrUqZIStMjGhq-QG6IM/edit?usp=sharing"
+              >
+                <div class="cardLink" id="linkContainer">
+                  <svg
+                    class="linkIcon"
+                    id="linkSvg"
+                    width="30"
+                    height="30"
+                    style="
+                      vertical-align: middle;
+                      fill: currentColor;
+                      overflow: hidden;
+                    "
+                    viewBox="0 0 1024 1024"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M546.918 665.498a187.96 187.96 0 0 1-133.324-55.143 25.6 25.6 0 0 1 36.198-36.198 137.47 137.47 0 0 0 194.202 0l186.163-186.163c53.555-53.556 53.555-140.647 0-194.202s-140.647-53.555-194.202 0L478.874 350.874a25.6 25.6 0 0 1-36.199-36.199l157.082-157.081c73.523-73.524 193.126-73.524 266.598 0s73.523 193.126 0 266.598L680.192 610.355a187.96 187.96 0 0 1-133.325 55.143z"
+                    />
+                    <path
+                      d="M239.718 972.698a187.96 187.96 0 0 1-133.324-55.143 188.67 188.67 0 0 1 0-266.598l186.163-186.163a188.67 188.67 0 0 1 266.598 0 25.6 25.6 0 0 1-36.198 36.198 137.47 137.47 0 0 0-194.202 0L142.592 687.155c-53.555 53.555-53.555 140.647 0 194.202s140.646 53.555 194.202 0l157.081-157.082a25.6 25.6 0 0 1 36.199 36.199L372.992 917.555a187.96 187.96 0 0 1-133.325 55.143z"
+                    />
+                  </svg>
+                </div>
+              </a>
+              <section class="testBg">
+                <h1 class="imgH1">Ryan Slattery</h1>
+                <br />
+                <h1 class="imgH2">Republican</h1>
+              </section>
+            </div>
+          </card>
+
+          <card>
+            <div class="cardBorder">
+              <img
+                src="https://live.staticflickr.com/65535/54887633038_893013766d.jpg"
+                width="333"
+                height="500"
+                alt="IMG_2388"
+              />
+              <a
+                href="https://docs.google.com/document/d/1I1w1r1expg3zaL6xfNOmc9MMDr8f_OLyepZLTZNVDtQ/edit?usp=sharing"
+              >
+                <div class="cardLink" id="linkContainer">
+                  <svg
+                    class="linkIcon"
+                    id="linkSvg"
+                    width="30"
+                    height="30"
+                    style="
+                      vertical-align: middle;
+                      fill: currentColor;
+                      overflow: hidden;
+                    "
+                    viewBox="0 0 1024 1024"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M546.918 665.498a187.96 187.96 0 0 1-133.324-55.143 25.6 25.6 0 0 1 36.198-36.198 137.47 137.47 0 0 0 194.202 0l186.163-186.163c53.555-53.556 53.555-140.647 0-194.202s-140.647-53.555-194.202 0L478.874 350.874a25.6 25.6 0 0 1-36.199-36.199l157.082-157.081c73.523-73.524 193.126-73.524 266.598 0s73.523 193.126 0 266.598L680.192 610.355a187.96 187.96 0 0 1-133.325 55.143z"
+                    />
+                    <path
+                      d="M239.718 972.698a187.96 187.96 0 0 1-133.324-55.143 188.67 188.67 0 0 1 0-266.598l186.163-186.163a188.67 188.67 0 0 1 266.598 0 25.6 25.6 0 0 1-36.198 36.198 137.47 137.47 0 0 0-194.202 0L142.592 687.155c-53.555 53.555-53.555 140.647 0 194.202s140.646 53.555 194.202 0l157.081-157.082a25.6 25.6 0 0 1 36.199 36.199L372.992 917.555a187.96 187.96 0 0 1-133.325 55.143z"
+                    />
+                  </svg>
+                </div>
+              </a>
+              <section class="testBg">
+                <h1 class="imgH1">Cassiella Koeune</h1>
+                <br />
+                <h1 class="imgH2">Republican</h1>
+              </section>
+            </div>
+          </card>
+        </section>
+
+        <section class="secondSponsorsGrid reveal">
+          <card>
+            <div class="cardBorder">
+              <img
+                src="https://live.staticflickr.com/65535/54887653709_e88d9ce794.jpg"
+                width="500"
+                height="469"
+                alt="IMG_2385"
+              />
+              <a
+                href="https://docs.google.com/document/d/1rPo9h5lkBy9XJi2oLtsEb4eymouleEnvY-cxyUfUFtc/edit?usp=sharing"
+              >
+                <div class="cardLink" id="linkContainer">
+                  <svg
+                    class="linkIcon"
+                    id="linkSvg"
+                    width="30"
+                    height="30"
+                    style="
+                      vertical-align: middle;
+                      fill: currentColor;
+                      overflow: hidden;
+                    "
+                    viewBox="0 0 1024 1024"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M546.918 665.498a187.96 187.96 0 0 1-133.324-55.143 25.6 25.6 0 0 1 36.198-36.198 137.47 137.47 0 0 0 194.202 0l186.163-186.163c53.555-53.556 53.555-140.647 0-194.202s-140.647-53.555-194.202 0L478.874 350.874a25.6 25.6 0 0 1-36.199-36.199l157.082-157.081c73.523-73.524 193.126-73.524 266.598 0s73.523 193.126 0 266.598L680.192 610.355a187.96 187.96 0 0 1-133.325 55.143z"
+                    />
+                    <path
+                      d="M239.718 972.698a187.96 187.96 0 0 1-133.324-55.143 188.67 188.67 0 0 1 0-266.598l186.163-186.163a188.67 188.67 0 0 1 266.598 0 25.6 25.6 0 0 1-36.198 36.198 137.47 137.47 0 0 0-194.202 0L142.592 687.155c-53.555 53.555-53.555 140.647 0 194.202s140.646 53.555 194.202 0l157.081-157.082a25.6 25.6 0 0 1 36.199 36.199L372.992 917.555a187.96 187.96 0 0 1-133.325 55.143z"
+                    />
+                  </svg>
+                </div>
+              </a>
+              <section class="testBg">
+                <h1 class="imgH1">Sean Blickhan</h1>
+                <br />
+                <h1 class="imgH2">Republican</h1>
+              </section>
+            </div>
+          </card>
+
+          <card>
+            <div class="cardBorder">
+              <img
+                src="https://live.staticflickr.com/65535/54887653759_660b3a7525.jpg"
+                width="375"
+                height="500"
+                alt="Tezza-1741 (1)"
+              />
+              <a
+                href="https://docs.google.com/document/d/1se-o00YvGGmvol_LAsn4ehPXXFRZIeHhZv5NE2OeQjw/edit?usp=sharing"
+              >
+                <div class="cardLink" id="linkContainer">
+                  <svg
+                    class="linkIcon"
+                    id="linkSvg"
+                    width="30"
+                    height="30"
+                    style="
+                      vertical-align: middle;
+                      fill: currentColor;
+                      overflow: hidden;
+                    "
+                    viewBox="0 0 1024 1024"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M546.918 665.498a187.96 187.96 0 0 1-133.324-55.143 25.6 25.6 0 0 1 36.198-36.198 137.47 137.47 0 0 0 194.202 0l186.163-186.163c53.555-53.556 53.555-140.647 0-194.202s-140.647-53.555-194.202 0L478.874 350.874a25.6 25.6 0 0 1-36.199-36.199l157.082-157.081c73.523-73.524 193.126-73.524 266.598 0s73.523 193.126 0 266.598L680.192 610.355a187.96 187.96 0 0 1-133.325 55.143z"
+                    />
+                    <path
+                      d="M239.718 972.698a187.96 187.96 0 0 1-133.324-55.143 188.67 188.67 0 0 1 0-266.598l186.163-186.163a188.67 188.67 0 0 1 266.598 0 25.6 25.6 0 0 1-36.198 36.198 137.47 137.47 0 0 0-194.202 0L142.592 687.155c-53.555 53.555-53.555 140.647 0 194.202s140.646 53.555 194.202 0l157.081-157.082a25.6 25.6 0 0 1 36.199 36.199L372.992 917.555a187.96 187.96 0 0 1-133.325 55.143z"
+                    />
+                  </svg>
+                </div>
+              </a>
+              <section class="testBg">
+                <h1 class="imgH1">Evan Murrin</h1>
+                <br />
+                <h1 class="imgH2">Democrat</h1>
+              </section>
+            </div>
+          </card>
+        </section>
+
+        <section class="bodyColumn column1">
+          <div class="youtubeVideo">
+            <iframe
+              width="1000"
+              height="563"
+              src="https://www.youtube.com/embed/2z3VR7dg5U0?si=vyFO9vj5h7WfGKQB"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="billFormatTemplate">
+            <iframe
+              src="https://docs.google.com/document/d/e/2PACX-1vTutXJG0xAq8KpTV6_Dfb6ueNvlY1qvlVCvoMcjvENjP42lTRc8ynCxkJKmrLCsPfZ3mLqExR7hnpsz/pub?embedded=true"
+              frameborder="0"
+            ></iframe>
+          </div>
+          <div class="billPaper">
+            <iframe
+              src="https://docs.google.com/document/d/e/2PACX-1vSm5WrDJBBeH_VnslWzEsHT3DmyfD91RMG1MUxJz0vJDT-A6fNAq5LrCcZXXlPW_eqMImf2jCf4F5Q5/pub?embedded=true"
+              frameborder="0"
+            ></iframe>
+          </div>
+          <div class="slidePresentation">
+            <iframe
+              src="https://docs.google.com/presentation/d/e/2PACX-1vSb3q_n9gFqjW7tiiAQ1xEbsmwKgJYrs6cYvyRwXR3p9b9UNCHSy7z5jdpVV4Ub-3Kt4ZCKlBjxklew/pubembed?start=true&loop=true&delayms=3000"
+              frameborder="0"
+              width="960"
+              height="569"
+              allowfullscreen="true"
+              mozallowfullscreen="true"
+              webkitallowfullscreen="true"
+            ></iframe>
+          </div>
+          <div class="googleFormPoll">
+            <iframe
+              src="https://docs.google.com/forms/d/e/1FAIpQLSdhx99_-x7heSQO78BstH9lZgiaiDJL19unhNy0AR997eWsmg/viewform?embedded=true"
+              width="640"
+              height="1000"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0"
+              >Loading…</iframe
+            >
+          </div>
+          <div class="googleFormStats">
+            <img
+              id="statsImage"
+              src="https://live.staticflickr.com/65535/54887429356_c9056104b3_b.jpg"
+              width="409"
+              height="1024"
+              alt="HB6310 Stats"
+            />
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      window.addEventListener("load", () => {
+        const revealElements = document.querySelectorAll(".revealImg");
+
+        revealElements.forEach((el, i) => {
+          setTimeout(() => {
+            el.classList.add("revealedImg");
+          }, i * 300);
+        });
+      });
+
+      window.addEventListener("load", () => {
+        const revealElements = document.querySelectorAll(".revealImg2");
+
+        revealElements.forEach((el, i) => {
+          setTimeout(() => {
+            el.classList.add("revealedImg2");
+          }, i * 150);
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const revealElements = document.querySelectorAll(".reveal");
+
+        const observerOptions = {
+          root: null,
+          rootMargin: "0px",
+          threshold: 0.1,
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("revealed");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        revealElements.forEach((element) => observer.observe(element));
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const header = document.getElementById("main-header");
+        const triggerPoint = 300;
+
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > triggerPoint) {
+            header.classList.add("show");
+          } else {
+            header.classList.remove("show");
+          }
+        });
+      });
+
+      document.getElementById("scrollBtn").addEventListener("click", () => {
+        const image = document.getElementById("landingImgGrid");
+        const offset = image.getBoundingClientRect().bottom;
+        window.scrollBy({
+          top: offset,
+          left: 0,
+          behavior: "smooth",
+        });
+      });
+
+      document.getElementById("upArrow").addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth",
+        });
+
+        const arrow = document.getElementById("upArrow");
+        arrow.classList.add("arrowClicked");
+
+        setTimeout(() => {
+          arrow.classList.remove("arrowClicked");
+        }, 50);
+      });
+    </script>
+  </body>
 </html>
