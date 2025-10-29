@@ -6,4 +6,11 @@
  Slide Presentation - Google Slide in bill Google Drive folder.
  !!!Poll - Google Form in bill Google Drive folder.
  !!!Poll Results - A Piktochart or Canva embed. 
- Optional: Images/Video related to your bill (Easy way to enhance the look of your website)p
+ Optional: Images/Video related to your bill (Easy way to enhance the look of your website)
+
+ Images
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/4BsfWvk/Embed-Kuba.png" alt="Embed-Kuba" border="0"></a>
+<a href="https://ibb.co/LdNQ9rTz"><img src="https://i.ibb.co/RTjhQNXp/IMG-2375.jpg" alt="IMG-2375" border="0"></a>
+<a href="https://ibb.co/1frNp6rD"><img src="https://i.ibb.co/bgsVyJsS/IMG-2385.jpg" alt="IMG-2385" border="0"></a>
+<a href="https://ibb.co/4gD0B6x7"><img src="https://i.ibb.co/Qjqxs2Gf/IMG-2388.jpg" alt="IMG-2388" border="0"></a>
+<a href="https://ibb.co/XZ5KrzKC"><img src="https://i.ibb.co/1fXPt9Pm/Tezza-1741-1.jpg" alt="Tezza-1741-1" border="0"></a>
